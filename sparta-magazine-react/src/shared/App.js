@@ -38,12 +38,8 @@ const App = (props) => {
                         <ConnectedRouter history={history}>
                             <Switch>
                                 <Route exact path="/" component={PostList} />
-                                <Route exact path="/login" component={Login} />
-                                <Route
-                                    exact
-                                    path="/signup"
-                                    component={Signup}
-                                />
+                                <Route path="/login" component={Login} />
+                                <Route path="/signup" component={Signup} />
                             </Switch>
                         </ConnectedRouter>
                     </Container>

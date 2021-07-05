@@ -7,7 +7,6 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 const Signup = (props) => {
     const dispatch = useDispatch();
-
     const [id, setId] = React.useState("");
     const [pwd, setPwd] = React.useState("");
     const [pwd_check, setPwdCheck] = React.useState("");
@@ -17,7 +16,6 @@ const Signup = (props) => {
         if (id === "" || pwd === "" || user_name === "") {
             return;
         }
-
         if (pwd !== pwd_check) {
             return;
         }

@@ -46,6 +46,7 @@ const Login = (props) => {
                     </Grid>
                     <Grid item={true} xs={12}>
                         <TextField
+                            type="password"
                             id="standard-full-width"
                             value={pwd}
                             onChange={(e) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { apiKey } from "../shared/firebase";
 
@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
 import Typography from "@material-ui/core/Typography";
+import { history } from "../redux/configureStore";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -41,7 +42,7 @@ const Header = React.memo((props) => {
                                 variant="outlined"
                                 color="secondary"
                                 onClick={() => {
-                                    dispatch(userActions.logOut({}));
+                                    dispatch(userActions.logoutFB());
                                 }}
                             >
                                 <Typography>로그아웃</Typography>
@@ -71,7 +72,9 @@ const Header = React.memo((props) => {
                         <Button
                             style={{ marginRight: "10px" }}
                             variant="outlined"
-                            onClick={() => {}}
+                            onClick={() => {
+                                history.push("/signup");
+                            }}
                         >
                             <Typography>회원가입</Typography>
                         </Button>
@@ -79,6 +82,9 @@ const Header = React.memo((props) => {
                             color="primary"
                             style={{ marginRight: "10px", width: "90px" }}
                             variant="outlined"
+                            onClick={() => {
+                                history.push("/login");
+                            }}
                         >
                             <Typography>로그인 </Typography>
                         </Button>
