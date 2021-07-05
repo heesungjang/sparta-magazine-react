@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutContainer from "../components/LayoutContainer";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
@@ -9,6 +9,9 @@ import PostList from "../pages/PostList";
 
 import { ThemeProvider, Container } from "@material-ui/core";
 import { theme } from "./themeConfig";
+
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../redux/configureStore";
 
 const App = (props) => {
     return (
@@ -19,7 +22,7 @@ const App = (props) => {
                         <Header></Header>
                     </LayoutContainer>
                     <Container style={{ height: "100%" }}>
-                        <Router>
+                        <ConnectedRouter history={history}>
                             <Switch>
                                 <Route exact path="/" component={PostList} />
                                 <Route exact path="/login" component={Login} />
@@ -29,7 +32,7 @@ const App = (props) => {
                                     component={Signup}
                                 />
                             </Switch>
-                        </Router>
+                        </ConnectedRouter>
                     </Container>
                 </div>
             </React.Fragment>
