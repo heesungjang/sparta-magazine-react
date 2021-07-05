@@ -8,19 +8,17 @@ import { Grid, Typography, TextField, Button } from "@material-ui/core";
 
 const Login = (props) => {
     const dispatch = useDispatch();
+
     const [id, setId] = React.useState("");
     const [pwd, setPwd] = React.useState("");
 
-    const changeId = (e) => {
-        setId(e.target.value);
-    };
-
-    const changePwd = (e) => {
-        setPwd(e.target.value);
-    };
-
     const login = () => {
-        dispatch(userActions.loginAction({ user_name: "perl" }));
+        if (id === "" || pwd === "") {
+            window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
+            return;
+        }
+
+        dispatch(userActions.loginFB(id, pwd));
     };
 
     return (
@@ -32,7 +30,9 @@ const Login = (props) => {
                         <TextField
                             id="standard-full-width"
                             value={id}
-                            onChange={changeId}
+                            onChange={(e) => {
+                                setId(e.target.value);
+                            }}
                             label="아이디"
                             style={{ margin: 8 }}
                             placeholder="아이디를  입력하세요"
@@ -48,7 +48,9 @@ const Login = (props) => {
                         <TextField
                             id="standard-full-width"
                             value={pwd}
-                            onChange={changePwd}
+                            onChange={(e) => {
+                                setPwd(e.target.value);
+                            }}
                             label="비밀번호"
                             style={{ margin: 8 }}
                             placeholder="비밀번호를 입력하세요"

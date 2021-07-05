@@ -29,9 +29,8 @@ const Signup = (props) => {
             <LayoutContainer>
                 <Typography variant="h4">회원가입</Typography>
                 <LayoutContainer>
-                    <Grid xs={12}>
+                    <Grid xs={12} item={true}>
                         <TextField
-                            id="standard-full-width"
                             label="아이디"
                             style={{ margin: 8 }}
                             placeholder="아이디를  입력하세요"
@@ -46,9 +45,8 @@ const Signup = (props) => {
                             }}
                         />
                     </Grid>
-                    <Grid xs={12}>
+                    <Grid xs={12} item={true}>
                         <TextField
-                            id="standard-full-width"
                             label="닉네임"
                             style={{ margin: 8 }}
                             placeholder="닉네임을 입력하세요"
@@ -63,9 +61,9 @@ const Signup = (props) => {
                             }}
                         />
                     </Grid>
-                    <Grid xs={12}>
+                    <Grid xs={12} item={true}>
                         <TextField
-                            id="standard-full-width"
+                            type="password"
                             label="비밀번호"
                             style={{ margin: 8 }}
                             placeholder="비밀번호를 입력하세요"
@@ -80,9 +78,9 @@ const Signup = (props) => {
                             }}
                         />
                     </Grid>
-                    <Grid xs={12}>
+                    <Grid xs={12} item={true}>
                         <TextField
-                            id="standard-full-width"
+                            type="password"
                             label="비밀번호 확인"
                             style={{ margin: 8 }}
                             placeholder="비밀번호를 다시 입력하세요"
@@ -97,7 +95,7 @@ const Signup = (props) => {
                             }}
                         />
                     </Grid>
-                    <Grid xs={12} style={{ marginTop: "20px" }}>
+                    <Grid item={true} xs={12} style={{ marginTop: "20px" }}>
                         <Button
                             variant="contained"
                             color="primary"
