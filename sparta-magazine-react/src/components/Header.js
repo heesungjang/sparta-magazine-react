@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import HomeIcon from "@material-ui/icons/Home";
+import Typography from "@material-ui/core/Typography";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -10,17 +14,8 @@ const ButtonContainer = styled.div`
 `;
 
 const Header = (props) => {
-    const [is_login, setIsLogin] = useState(true);
-
-    // React.useEffect(() => {
-    //     let cookie = getCookie("쿠키 이름 넣기!");
-
-    //     if (cookie) {
-    //         setIsLogin(true);
-    //     } else {
-    //         setIsLogin(false);
-    //     }
-    // });
+    const dispatch = useDispatch();
+    const is_login = useSelector((state) => state.user.is_login);
 
     if (is_login) {
         return (
@@ -33,8 +28,9 @@ const Header = (props) => {
                     justify="center"
                 >
                     <Grid item={true} xs={2}>
+                        <HomeIcon color="primary" />
                         <Typography variant="h5" medium>
-                            👋 My Dictionary
+                            My Dictionary
                         </Typography>
                     </Grid>
                     {/* <Grid xs={3}></Grid> */}
@@ -44,7 +40,7 @@ const Header = (props) => {
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => {
-                                    // deleteCookie("login");
+                                    dispatch(userActions.logOut({}));
                                 }}
                             >
                                 <Typography>로그아웃</Typography>
@@ -64,11 +60,12 @@ const Header = (props) => {
                 alignItems="center"
                 justify="center"
             >
-                <Grid item={true} xs={2}>
-                    <Typography variant="h6">📘 My Dictionary</Typography>
+                <Grid item={true} xs={5}>
+                    <HomeIcon fontSize="large" color="primary" />
+                    <Typography variant="h6">My Dictionary </Typography>
                 </Grid>
 
-                <Grid item={true} xs={10}>
+                <Grid item={true} xs={7}>
                     <ButtonContainer>
                         <Button
                             style={{ marginRight: "10px" }}
