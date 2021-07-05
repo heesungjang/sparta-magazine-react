@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { apiKey } from "../shared/firebase";
 
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
@@ -13,10 +14,12 @@ const ButtonContainer = styled.div`
     justify-content: flex-end;
 `;
 
-const Header = (props) => {
+const Header = React.memo((props) => {
+    const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+
     const dispatch = useDispatch();
-    const is_login = useSelector((state) => state.user.is_login);
-    console.log(is_login);
+    const is_login = sessionStorage.getItem(_session_key);
+
     if (is_login) {
         return (
             <React.Fragment>
@@ -84,6 +87,6 @@ const Header = (props) => {
             </Grid>
         </React.Fragment>
     );
-};
+});
 
 export default Header;

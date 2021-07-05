@@ -10,10 +10,23 @@ import PostList from "../pages/PostList";
 import { ThemeProvider, Container } from "@material-ui/core";
 import { theme } from "./themeConfig";
 
-import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
+import { ConnectedRouter } from "connected-react-router";
+import { useDispatch } from "react-redux";
+import { apiKey } from "../shared/firebase";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const App = (props) => {
+    const dispatch = useDispatch();
+    const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+    const is_session = sessionStorage.getItem(_session_key) ? true : false;
+
+    React.useEffect(() => {
+        if (is_session) {
+            dispatch(userActions.loginCheckFB());
+        }
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <React.Fragment>
