@@ -16,7 +16,7 @@ const ButtonContainer = styled.div`
 const Header = (props) => {
     const dispatch = useDispatch();
     const is_login = useSelector((state) => state.user.is_login);
-
+    console.log(is_login);
     if (is_login) {
         return (
             <React.Fragment>
@@ -27,17 +27,15 @@ const Header = (props) => {
                     alignItems="center"
                     justify="center"
                 >
-                    <Grid item={true} xs={2}>
-                        <HomeIcon color="primary" />
-                        <Typography variant="h5" medium>
-                            My Dictionary
-                        </Typography>
+                    <Grid item={true} xs={5}>
+                        <HomeIcon fontSize="large" color="primary" />
+                        <Typography variant="h6">My Dictionary </Typography>
                     </Grid>
                     {/* <Grid xs={3}></Grid> */}
-                    <Grid item={true} xs={10}>
+                    <Grid item={true} xs={7}>
                         <ButtonContainer>
                             <Button
-                                variant="contained"
+                                variant="outlined"
                                 color="secondary"
                                 onClick={() => {
                                     dispatch(userActions.logOut({}));
@@ -69,17 +67,17 @@ const Header = (props) => {
                     <ButtonContainer>
                         <Button
                             style={{ marginRight: "10px" }}
-                            variant="contained"
+                            variant="outlined"
                             onClick={() => {}}
                         >
                             <Typography>회원가입</Typography>
                         </Button>
                         <Button
                             color="primary"
-                            style={{ marginRight: "10px" }}
-                            variant="contained"
+                            style={{ marginRight: "10px", width: "90px" }}
+                            variant="outlined"
                         >
-                            <Typography>로그인</Typography>
+                            <Typography>로그인 </Typography>
                         </Button>
                     </ButtonContainer>
                 </Grid>
