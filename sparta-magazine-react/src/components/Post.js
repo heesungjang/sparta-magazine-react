@@ -78,14 +78,16 @@ const Post = (props) => {
                             </Avatar>
                         }
                         action={
-                            <IconButton
-                                onClick={() => {
-                                    history.push(`/write/${props.post_id}`);
-                                }}
-                                aria-label="settings"
-                            >
-                                {props.is_me && <BorderColorIcon />}
-                            </IconButton>
+                            props.is_me && (
+                                <IconButton
+                                    onClick={() => {
+                                        history.push(`/write/${props.post_id}`);
+                                    }}
+                                    aria-label="settings"
+                                >
+                                    {props.is_me && <BorderColorIcon />}
+                                </IconButton>
+                            )
                         }
                         title={props.user_info.user_name}
                         subheader={props.insert_dt}
@@ -105,10 +107,23 @@ const Post = (props) => {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
-                        </IconButton>
-                        <Typography>좋아요 {props.comment_cnt}개 </Typography>
+                        <Grid item={true} xs={6}>
+                            <IconButton aria-label="add to favorites">
+                                <FavoriteIcon />
+                            </IconButton>
+                        </Grid>
+                        <Grid
+                            item={true}
+                            xs={6}
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                marginRight: "5px",
+                                marginTop: "15px",
+                            }}
+                        >
+                            <Typography>댓글 {props.comment_cnt}개 </Typography>
+                        </Grid>
                     </CardActions>
                 </Card>
             </Grid>

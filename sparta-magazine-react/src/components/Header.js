@@ -1,7 +1,7 @@
 import React from "react";
 
 import { apiKey } from "../shared/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -15,12 +15,12 @@ const ButtonContainer = styled.div`
 `;
 
 const Header = React.memo((props) => {
-    const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-
     const dispatch = useDispatch();
-    const is_login = sessionStorage.getItem(_session_key);
+    const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+    const is_session = sessionStorage.getItem(_session_key) ? true : false;
+    const is_login = useSelector((state) => state.user.is_login);
 
-    if (is_login) {
+    if (is_login && is_session) {
         return (
             <React.Fragment>
                 <Grid

@@ -218,36 +218,6 @@ const getPostFB = (start = null, size = 3) => {
                 post_list.pop();
                 dispatch(setPost(post_list, paging));
             });
-
-        return;
-        postDB.get().then((docs) => {
-            let post_list = [];
-            docs.forEach((doc) => {
-                let _post = doc.data();
-                // ['commenct_cnt', 'contents', ..]
-                let post = Object.keys(_post).reduce(
-                    (acc, cur) => {
-                        if (cur.indexOf("user_") !== -1) {
-                            return {
-                                ...acc,
-                                user_info: {
-                                    ...acc.user_info,
-                                    [cur]: _post[cur],
-                                },
-                            };
-                        }
-                        return { ...acc, [cur]: _post[cur] };
-                    },
-                    { id: doc.id, user_info: {} }
-                );
-
-                post_list.push(post);
-            });
-
-            console.log(post_list);
-
-            dispatch(setPost(post_list));
-        });
     };
 };
 

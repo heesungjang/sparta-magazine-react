@@ -1,10 +1,10 @@
 import React from "react";
-
+import LayoutContainer from "../components/LayoutContainer";
 import Post from "../components/Post";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-
 import { Grid, Container, Typography } from "@material-ui/core";
+import InfinityScroll from "../shared/InfinityScroll";
 
 const PostList = (props) => {
     const { history } = props;
@@ -25,32 +25,47 @@ const PostList = (props) => {
         <React.Fragment>
             <Container style={{ height: "80vh" }}>
                 <Grid item={true} xs={12} style={{ marginTop: "20px" }}>
-                    <Typography variant="h4">Feed</Typography>
-                    {post_list.map((p, idx) => {
-                        if (p.user_info.user_id === user_info?.uid) {
-                            return (
-                                <Post
-                                    is_me
-                                    post_id={p.id}
-                                    onClick={() => {
-                                        history.push(`/post/${p.id}`);
-                                    }}
-                                    key={p.id}
-                                    {...p}
-                                />
-                            );
-                        } else {
-                            return (
-                                <Post
-                                    onClick={() => {
-                                        history.push(`/post/${p.id}`);
-                                    }}
-                                    key={p.id}
-                                    {...p}
-                                />
-                            );
-                        }
-                    })}
+                    <Grid
+                        item={true}
+                        xs={12}
+                        style={{ display: "flex", justifyContent: "center" }}
+                    >
+                        <Typography variant="h4">피드</Typography>
+                    </Grid>
+                    <InfinityScroll
+                        callNext={() => {
+                            console.log("next!");
+                            dispatch(postActions.getPostFB(paging.next));
+                        }}
+                        is_next={paging.next ? true : false}
+                        loading={is_loading}
+                    >
+                        {post_list.map((p, idx) => {
+                            if (p.user_info.user_id === user_info?.uid) {
+                                return (
+                                    <Post
+                                        is_me
+                                        post_id={p.id}
+                                        onClick={() => {
+                                            history.push(`/post/${p.id}`);
+                                        }}
+                                        key={p.id}
+                                        {...p}
+                                    />
+                                );
+                            } else {
+                                return (
+                                    <Post
+                                        onClick={() => {
+                                            history.push(`/post/${p.id}`);
+                                        }}
+                                        key={p.id}
+                                        {...p}
+                                    />
+                                );
+                            }
+                        })}
+                    </InfinityScroll>
                 </Grid>
             </Container>
         </React.Fragment>

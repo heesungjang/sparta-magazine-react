@@ -10,10 +10,11 @@ import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
 import LayoutContainer from "../components/LayoutContainer";
 // 머테리얼 UI
+import Paper from "@material-ui/core/Paper";
 import { theme } from "./themeConfig";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
-import { ThemeProvider, Button } from "@material-ui/core";
+import { ThemeProvider, Button, Container } from "@material-ui/core";
 //리덕스 & 파이어베이스
 import { apiKey } from "../shared/firebase";
 import { history } from "../redux/configureStore";
@@ -35,10 +36,11 @@ const App = (props) => {
     return (
         <ThemeProvider theme={theme}>
             <React.Fragment>
-                <div style={{ height: "100vh" }}>
+                <Container style={{ height: "100vh" }}>
                     <LayoutContainer>
                         <Header></Header>
                     </LayoutContainer>
+
                     <LayoutContainer>
                         <ConnectedRouter history={history}>
                             <Switch>
@@ -48,6 +50,11 @@ const App = (props) => {
                                     exact
                                     path="/signup"
                                     component={Signup}
+                                />
+                                <Route
+                                    path="/write"
+                                    exact
+                                    component={PostWrite}
                                 />
                                 <Route
                                     path="/write/:id"
@@ -62,7 +69,7 @@ const App = (props) => {
                             </Switch>
                         </ConnectedRouter>
                     </LayoutContainer>
-                </div>
+                </Container>
                 <div style={{ position: "fixed", bottom: 20, right: 30 }}>
                     <Permit>
                         <Button

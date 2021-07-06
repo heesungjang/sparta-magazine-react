@@ -42,7 +42,15 @@ const Signup = (props) => {
     return (
         <React.Fragment>
             <Container style={{ height: "80vh" }}>
-                <Grid xs={12} style={{ marginTop: "20px" }}>
+                <Grid
+                    item={true}
+                    xs={12}
+                    style={{
+                        margin: "20px 0 20px 0",
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                >
                     <Typography variant="h4">회원가입</Typography>
                 </Grid>
                 <LayoutContainer>

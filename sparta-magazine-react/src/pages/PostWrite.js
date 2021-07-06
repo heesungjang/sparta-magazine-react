@@ -34,17 +34,32 @@ const useStyles = makeStyles({
     },
 });
 const PostWrite = (props) => {
-    const preview = useSelector((state) => state.image.preview);
-
     const fileInput = React.useRef();
-
     const classes = useStyles();
 
-    const { history } = props;
     const dispatch = useDispatch();
     const is_login = useSelector((state) => state.user.is_login);
+    const preview = useSelector((state) => state.image.preview);
+    const post_list = useSelector((state) => state.post.list);
 
-    const [contents, setContents] = React.useState("");
+    const post_id = props.match.params.id;
+    const is_edit = post_id ? true : false;
+    const { history } = props;
+
+    let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+    const [contents, setContents] = React.useState(_post ? _post.contents : "");
+    React.useEffect(() => {
+        if (is_edit && !_post) {
+            console.log("포스트 정보가 없어요!");
+            history.goBack();
+
+            return;
+        }
+
+        if (is_edit) {
+            dispatch(imageActions.setPreview(_post.image_url));
+        }
+    }, []);
 
     const addPost = () => {
         dispatch(postActions.addPostFB(contents));
@@ -71,6 +86,10 @@ const PostWrite = (props) => {
         _upload.then((snapshot) => {
             console.log(snapshot);
         });
+    };
+
+    const editPost = () => {
+        dispatch(postActions.editPostFB(post_id, { contents: contents }));
     };
 
     if (!is_login) {
@@ -152,7 +171,7 @@ const PostWrite = (props) => {
                     }}
                 >
                     <TextField
-                        label="게시글 내용"
+                        label={is_edit ? "게시글 내용" : "게시글 작성"}
                         id="outlined-multiline-static"
                         multiline
                         rows={4}
@@ -173,16 +192,29 @@ const PostWrite = (props) => {
                         justifyContent: "center",
                     }}
                 >
-                    <Button
-                        onClick={addPost}
-                        variant="contained"
-                        color="primary"
-                        style={{
-                            width: "400px",
-                        }}
-                    >
-                        게시글 작성
-                    </Button>
+                    {is_edit ? (
+                        <Button
+                            onClick={editPost}
+                            variant="contained"
+                            color="primary"
+                            style={{
+                                width: "400px",
+                            }}
+                        >
+                            게시글 수정
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={addPost}
+                            variant="contained"
+                            color="primary"
+                            style={{
+                                width: "400px",
+                            }}
+                        >
+                            게시글 작성
+                        </Button>
+                    )}
                 </Grid>
             </Container>
         </React.Fragment>
