@@ -99,7 +99,7 @@ const PostWrite = (props) => {
                         marginTop: "20px",
                     }}
                 >
-                    <Typography variant="h4">✏️ Post now</Typography>
+                    <Typography variant="h4">Post</Typography>
                 </Grid>
                 <Grid
                     item={true}

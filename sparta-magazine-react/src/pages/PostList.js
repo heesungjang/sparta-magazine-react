@@ -9,32 +9,47 @@ import { Grid, Container, Typography } from "@material-ui/core";
 const PostList = (props) => {
     const { history } = props;
     const dispatch = useDispatch();
-
+    const user_info = useSelector((state) => state.user.user);
+    const is_loading = useSelector((state) => state.post.is_loading);
+    const paging = useSelector((state) => state.post.paging);
     const post_list = useSelector((state) => state.post.list);
-    console.log(post_list);
 
+    // const { history } = props;
     React.useEffect(() => {
-        dispatch(postActions.getPostFB());
+        if (post_list.length === 0) {
+            dispatch(postActions.getPostFB());
+        }
     }, []);
 
     return (
         <React.Fragment>
             <Container style={{ height: "80vh" }}>
                 <Grid item={true} xs={12} style={{ marginTop: "20px" }}>
-                    <Typography variant="h4">
-                        게시글 리스트 페이지 (Home)
-                    </Typography>
-
+                    <Typography variant="h4">Feed</Typography>
                     {post_list.map((p, idx) => {
-                        return (
-                            <Post
-                                onClick={() => {
-                                    history.push(`/post/${p.id}`);
-                                }}
-                                key={p.id}
-                                {...p}
-                            />
-                        );
+                        if (p.user_info.user_id === user_info?.uid) {
+                            return (
+                                <Post
+                                    is_me
+                                    post_id={p.id}
+                                    onClick={() => {
+                                        history.push(`/post/${p.id}`);
+                                    }}
+                                    key={p.id}
+                                    {...p}
+                                />
+                            );
+                        } else {
+                            return (
+                                <Post
+                                    onClick={() => {
+                                        history.push(`/post/${p.id}`);
+                                    }}
+                                    key={p.id}
+                                    {...p}
+                                />
+                            );
+                        }
                     })}
                 </Grid>
             </Container>

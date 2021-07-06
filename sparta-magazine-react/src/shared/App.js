@@ -50,11 +50,6 @@ const App = (props) => {
                                     component={Signup}
                                 />
                                 <Route
-                                    path="/write"
-                                    exact
-                                    component={PostWrite}
-                                />
-                                <Route
                                     path="/write/:id"
                                     exact
                                     component={PostWrite}
@@ -68,7 +63,7 @@ const App = (props) => {
                         </ConnectedRouter>
                     </LayoutContainer>
                 </div>
-                <div style={{ position: "absolute", bottom: 20, right: 30 }}>
+                <div style={{ position: "fixed", bottom: 20, right: 30 }}>
                     <Permit>
                         <Button
                             onClick={() => {

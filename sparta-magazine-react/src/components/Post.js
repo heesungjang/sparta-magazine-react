@@ -1,6 +1,7 @@
 import React from "react";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LayoutContainer from "../components/LayoutContainer";
+import { history } from "../redux/configureStore";
 
 import {
     Avatar,
@@ -24,7 +25,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        width: 400,
+        maxWidth: 455,
     },
     media: {
         height: 0,
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         transform: "rotate(180deg)",
     },
     avatar: {
-        backgroundColor: "//#endregion778beb",
+        backgroundColor: "#778beb",
     },
 }));
 
@@ -76,8 +78,13 @@ const Post = (props) => {
                             </Avatar>
                         }
                         action={
-                            <IconButton aria-label="settings">
-                                <BorderColorIcon />
+                            <IconButton
+                                onClick={() => {
+                                    history.push(`/write/${props.post_id}`);
+                                }}
+                                aria-label="settings"
+                            >
+                                {props.is_me && <BorderColorIcon />}
                             </IconButton>
                         }
                         title={props.user_info.user_name}
@@ -119,6 +126,7 @@ Post.defaultProps = {
     contents: "고양이네요!",
     comment_cnt: 10,
     insert_dt: "2021-02-27 10:00:00",
+    is_me: false,
 };
 
 export default Post;
