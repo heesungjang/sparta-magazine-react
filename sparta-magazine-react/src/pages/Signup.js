@@ -1,9 +1,17 @@
 import React from "react";
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
-import LayoutContainer from "../components/LayoutContainer";
+import { emailCheck } from "../shared/common";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+
+import LayoutContainer from "../components/LayoutContainer";
+import {
+    Grid,
+    Typography,
+    TextField,
+    Button,
+    Container,
+} from "@material-ui/core";
 
 const Signup = (props) => {
     const dispatch = useDispatch();
@@ -14,18 +22,29 @@ const Signup = (props) => {
 
     const signup = () => {
         if (id === "" || pwd === "" || user_name === "") {
+            window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
             return;
         }
+
+        if (!emailCheck(id)) {
+            window.alert("이메일 형식이 맞지 않습니다!");
+            return;
+        }
+
         if (pwd !== pwd_check) {
+            window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
             return;
         }
+
         dispatch(userActions.signupFB(id, pwd, user_name));
     };
 
     return (
         <React.Fragment>
-            <LayoutContainer>
-                <Typography variant="h4">회원가입</Typography>
+            <Container style={{ height: "80vh" }}>
+                <Grid xs={12} style={{ marginTop: "20px" }}>
+                    <Typography variant="h4">회원가입</Typography>
+                </Grid>
                 <LayoutContainer>
                     <Grid xs={12} item={true}>
                         <TextField
@@ -104,7 +123,7 @@ const Signup = (props) => {
                         </Button>
                     </Grid>
                 </LayoutContainer>
-            </LayoutContainer>
+            </Container>
         </React.Fragment>
     );
 };
