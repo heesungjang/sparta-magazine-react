@@ -1,19 +1,24 @@
 import React from "react";
-import LayoutContainer from "../components/LayoutContainer";
 import { Route, Switch } from "react-router-dom";
-
+//컴포넌트
 import Login from "../pages/Login";
+import Permit from "./Permit";
 import Signup from "../pages/Signup";
 import Header from "../components/Header";
 import PostList from "../pages/PostList";
-
-import { ThemeProvider, Container } from "@material-ui/core";
+import PostWrite from "../pages/PostWrite";
+import PostDetail from "../pages/PostDetail";
+import LayoutContainer from "../components/LayoutContainer";
+// 머테리얼 UI
 import { theme } from "./themeConfig";
-
-import { history } from "../redux/configureStore";
-import { ConnectedRouter } from "connected-react-router";
-import { useDispatch } from "react-redux";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit";
+import { ThemeProvider, Button } from "@material-ui/core";
+//리덕스 & 파이어베이스
 import { apiKey } from "../shared/firebase";
+import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 const App = (props) => {
@@ -34,15 +39,47 @@ const App = (props) => {
                     <LayoutContainer>
                         <Header></Header>
                     </LayoutContainer>
-                    <Container style={{ height: "100%" }}>
+                    <LayoutContainer>
                         <ConnectedRouter history={history}>
                             <Switch>
                                 <Route exact path="/" component={PostList} />
-                                <Route path="/login" component={Login} />
-                                <Route path="/signup" component={Signup} />
+                                <Route exact path="/login" component={Login} />
+                                <Route
+                                    exact
+                                    path="/signup"
+                                    component={Signup}
+                                />
+                                <Route
+                                    path="/write"
+                                    exact
+                                    component={PostWrite}
+                                />
+                                <Route
+                                    path="/write/:id"
+                                    exact
+                                    component={PostWrite}
+                                />
+                                <Route
+                                    path="/post/:id"
+                                    exact
+                                    component={PostDetail}
+                                />
                             </Switch>
                         </ConnectedRouter>
-                    </Container>
+                    </LayoutContainer>
+                </div>
+                <div style={{ position: "absolute", bottom: 20, right: 30 }}>
+                    <Permit>
+                        <Button
+                            onClick={() => {
+                                history.push("/write");
+                            }}
+                        >
+                            <Fab color="primary" aria-label="edit">
+                                <EditIcon />
+                            </Fab>
+                        </Button>
+                    </Permit>
                 </div>
             </React.Fragment>
         </ThemeProvider>
