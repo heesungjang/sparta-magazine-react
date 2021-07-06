@@ -1,10 +1,17 @@
 import React from "react";
+import { emailCheck } from "../shared/common";
+
+import LayoutContainer from "../components/LayoutContainer";
+import {
+    Grid,
+    Typography,
+    TextField,
+    Button,
+    Container,
+} from "@material-ui/core";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-
-import LayoutContainer from "../components/LayoutContainer";
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
 
 const Login = (props) => {
     const dispatch = useDispatch();
@@ -17,14 +24,20 @@ const Login = (props) => {
             window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
             return;
         }
+        if (!emailCheck(id)) {
+            window.alert("이메일 형식이 맞지 않습니다!");
+            return;
+        }
 
         dispatch(userActions.loginFB(id, pwd));
     };
 
     return (
         <React.Fragment>
-            <LayoutContainer>
-                <Typography variant="h4">로그인</Typography>
+            <Container style={{ height: "80vh" }}>
+                <Grid xs={12} style={{ marginTop: "20px" }}>
+                    <Typography variant="h4">로그인</Typography>
+                </Grid>
                 <LayoutContainer>
                     <Grid item={true} xs={12}>
                         <TextField
@@ -76,7 +89,7 @@ const Login = (props) => {
                         </Button>
                     </Grid>
                 </LayoutContainer>
-            </LayoutContainer>
+            </Container>
         </React.Fragment>
     );
 };

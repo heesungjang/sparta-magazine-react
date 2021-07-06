@@ -5,7 +5,16 @@ const LayoutContainer = (props) => {
     const { children } = props;
     return (
         <React.Fragment>
-            <Grid container spacing={3} style={{ padding: 20 }}>
+            <Grid
+                container
+                spacing={3}
+                style={{
+                    paddingTop: 0,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    paddingBottom: 0,
+                }}
+            >
                 {children}
             </Grid>
         </React.Fragment>

@@ -1,14 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { apiKey } from "../shared/firebase";
 
-import Grid from "@material-ui/core/Grid";
-import styled from "styled-components";
-import Button from "@material-ui/core/Button";
-import HomeIcon from "@material-ui/icons/Home";
-import Typography from "@material-ui/core/Typography";
+import { apiKey } from "../shared/firebase";
+import { useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
+import { actionCreators as userActions } from "../redux/modules/user";
+
+import styled from "styled-components";
+import HomeIcon from "@material-ui/icons/Home";
+import { Grid, Typography, Button } from "@material-ui/core";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -31,12 +30,18 @@ const Header = React.memo((props) => {
                     alignItems="center"
                     justify="center"
                 >
-                    <Grid item={true} xs={5}>
-                        <HomeIcon fontSize="large" color="primary" />
-                        <Typography variant="h6">My Dictionary </Typography>
+                    <Grid item={true} xs={6}>
+                        <Button
+                            onClick={() => {
+                                history.push("/");
+                            }}
+                        >
+                            <HomeIcon fontSize="large" color="primary" />
+                            <Typography variant="h6">My Dictionary </Typography>
+                        </Button>
                     </Grid>
                     {/* <Grid xs={3}></Grid> */}
-                    <Grid item={true} xs={7}>
+                    <Grid item={true} xs={6}>
                         <ButtonContainer>
                             <Button
                                 variant="outlined"
@@ -63,8 +68,14 @@ const Header = React.memo((props) => {
                 justify="center"
             >
                 <Grid item={true} xs={5}>
-                    <HomeIcon fontSize="large" color="primary" />
-                    <Typography variant="h6">My Dictionary </Typography>
+                    <Button
+                        onClick={() => {
+                            history.push("/");
+                        }}
+                    >
+                        <HomeIcon fontSize="large" color="primary" />
+                        <Typography variant="h6">My Dictionary </Typography>
+                    </Button>
                 </Grid>
 
                 <Grid item={true} xs={7}>
