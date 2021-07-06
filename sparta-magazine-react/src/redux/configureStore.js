@@ -5,11 +5,15 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
 import Post from "./modules/post";
 import User from "./modules/user";
+import Image from "./modules/image";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
     user: User,
+    post: Post,
+    image: Image,
+
     router: connectRouter(history),
 });
 

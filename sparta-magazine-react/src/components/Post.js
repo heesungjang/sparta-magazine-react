@@ -56,6 +56,7 @@ const Post = (props) => {
     return (
         <Container>
             <Grid
+                item={true}
                 xs={12}
                 style={{
                     margin: "20px",
