@@ -59,7 +59,6 @@ const CommentItem = (props) => {
     const classes = useStyles();
     const { user_profile, user_name, user_id, post_id, contents, insert_dt } =
         props;
-    console.log("ssd", user_profile);
     return (
         <ListItem
             style={{

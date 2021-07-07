@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Post = (props) => {
+    console.log(props);
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -56,7 +57,13 @@ const Post = (props) => {
     };
 
     return (
-        <Container>
+        <Container
+            onClick={() => {
+                if (props.feed) {
+                    history.push(`/post/${props.id}`);
+                }
+            }}
+        >
             <Grid
                 item={true}
                 xs={12}
@@ -78,10 +85,11 @@ const Post = (props) => {
                             </Avatar>
                         }
                         action={
-                            props.is_me && (
+                            props.is_me &&
+                            props.detail && (
                                 <IconButton
                                     onClick={() => {
-                                        history.push(`/write/${props.post_id}`);
+                                        history.push(`/write/${props.id}`);
                                     }}
                                     aria-label="settings"
                                 >
@@ -103,7 +111,7 @@ const Post = (props) => {
                             color="textSecondary"
                             component="p"
                         >
-                            고양이를 너무 좋아해요!
+                            {props.contents}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>

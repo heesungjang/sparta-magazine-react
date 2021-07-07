@@ -28,7 +28,10 @@ const PostList = (props) => {
                     <Grid
                         item={true}
                         xs={12}
-                        style={{ display: "flex", justifyContent: "center" }}
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
                     >
                         <Typography variant="h4">피드</Typography>
                     </Grid>
@@ -45,24 +48,14 @@ const PostList = (props) => {
                                 return (
                                     <Post
                                         is_me
+                                        feed
                                         post_id={p.id}
-                                        onClick={() => {
-                                            history.push(`/post/${p.id}`);
-                                        }}
                                         key={p.id}
                                         {...p}
                                     />
                                 );
                             } else {
-                                return (
-                                    <Post
-                                        onClick={() => {
-                                            history.push(`/post/${p.id}`);
-                                        }}
-                                        key={p.id}
-                                        {...p}
-                                    />
-                                );
+                                return <Post feed key={p.id} {...p} />;
                             }
                         })}
                     </InfinityScroll>
