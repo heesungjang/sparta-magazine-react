@@ -221,12 +221,62 @@ const getPostFB = (start = null, size = 3) => {
     };
 };
 
+const getOnePostFB = (id) => {
+    return function (dispatch, getState, { history }) {
+        const postDB = firestore.collection("post");
+        postDB
+            .doc(id)
+            .get()
+            .then((doc) => {
+                let _post = doc.data();
+
+                if (!_post) {
+                    return;
+                }
+
+                let post = Object.keys(_post).reduce(
+                    (acc, cur) => {
+                        if (cur.indexOf("user_") !== -1) {
+                            return {
+                                ...acc,
+                                user_info: {
+                                    ...acc.user_info,
+                                    [cur]: _post[cur],
+                                },
+                            };
+                        }
+                        return { ...acc, [cur]: _post[cur] };
+                    },
+                    { id: doc.id, user_info: {} }
+                );
+
+                dispatch(setPost([post], { start: null, next: null, size: 3 }));
+            });
+    };
+};
+
 export default handleActions(
     {
         [SET_POST]: (state, action) =>
             produce(state, (draft) => {
                 draft.list.push(...action.payload.post_list);
-                draft.paging = action.payload.paging;
+
+                // post_id가 같은 중복 항목을 제거합시다! :)
+                draft.list = draft.list.reduce((acc, cur) => {
+                    // findIndex로 누산값(cur)에 현재값이 이미 들어있나 확인해요!
+                    // 있으면? 덮어쓰고, 없으면? 넣어주기!
+                    if (acc.findIndex((a) => a.id === cur.id) === -1) {
+                        return [...acc, cur];
+                    } else {
+                        acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+                        return acc;
+                    }
+                }, []);
+
+                // paging이 있을 때만 넣기
+                if (action.payload.paging) {
+                    draft.paging = action.payload.paging;
+                }
                 draft.is_loading = false;
             }),
 
@@ -260,6 +310,7 @@ const actionCreators = {
     getPostFB,
     addPostFB,
     editPostFB,
+    getOnePostFB,
 };
 
 export { actionCreators };
