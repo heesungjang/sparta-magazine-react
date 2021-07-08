@@ -41,7 +41,7 @@ const loginFB = (id, pwd) => {
                             })
                         );
 
-                        history.push("/");
+                        history.replace("/");
                     })
                     .catch((error) => {
                         var errorCode = error.code;
@@ -71,16 +71,16 @@ const signupFB = (id, pwd, user_name) => {
                                 user_profile: "",
                             })
                         );
-                        history.push("/");
+                        history.replace("/login");
                     })
                     .catch((error) => {
-                        console.log(error);
+                        window.alert(error);
                     });
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                window.alert(errorCode, errorMessage);
             });
     };
 };

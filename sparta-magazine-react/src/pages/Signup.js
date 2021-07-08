@@ -36,6 +36,11 @@ const Signup = (props) => {
             return;
         }
 
+        if (pwd.length < 6) {
+            window.alert("비밀번호는 6자리 이상 입력하세요.");
+            return;
+        }
+
         dispatch(userActions.signupFB(id, pwd, user_name));
     };
 

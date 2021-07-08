@@ -65,6 +65,7 @@ const Notification = (props) => {
                             xs={12}
                             style={{
                                 display: "flex",
+                                flexDirection: "column",
                                 justifyContent: "center",
                             }}
                         >
