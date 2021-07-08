@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import { history } from "../redux/configureStore";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,20 +20,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AlignItemsList() {
+export default function AlignItemsList(props) {
     const classes = useStyles();
+
+    const { image_url, user_name, post_id } = props;
 
     return (
         <List className={classes.root}>
-            <ListItem alignItems="flex-start">
+            <ListItem
+                alignItems="flex-start"
+                onClick={() => {
+                    history.push(`/post/${post_id}`);
+                }}
+            >
                 <ListItemAvatar>
-                    <Avatar
-                        alt="Remy Sharp"
-                        src="/static/images/avatar/1.jpg"
-                    />
+                    <Avatar alt="Remy Sharp" src={image_url} />
                 </ListItemAvatar>
                 <ListItemText
-                    primary="Brunch this weekend?"
+                    primary={`${user_name} 님이 게시글에 댓글을 남겼습니다 :)!`}
                     secondary={
                         <React.Fragment>
                             <Typography
