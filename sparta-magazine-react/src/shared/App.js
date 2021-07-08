@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import PostList from "../pages/PostList";
 import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
+import Notification from "../pages/Notification";
 import LayoutContainer from "../components/LayoutContainer";
 // 머테리얼 UI
 import Paper from "@material-ui/core/Paper";
@@ -65,6 +66,11 @@ const App = (props) => {
                                     path="/post/:id"
                                     exact
                                     component={PostDetail}
+                                />
+                                <Route
+                                    path="/noti"
+                                    exact
+                                    component={Notification}
                                 />
                             </Switch>
                         </ConnectedRouter>

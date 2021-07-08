@@ -49,6 +49,11 @@ const Login = (props) => {
                 <LayoutContainer>
                     <Grid item={true} xs={12}>
                         <TextField
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                    login();
+                                }
+                            }}
                             id="standard-full-width"
                             value={id}
                             onChange={(e) => {
@@ -67,6 +72,11 @@ const Login = (props) => {
                     </Grid>
                     <Grid item={true} xs={12}>
                         <TextField
+                            onKeyPress={(e) => {
+                                if (e.key === "Enter") {
+                                    login();
+                                }
+                            }}
                             type="password"
                             id="standard-full-width"
                             value={pwd}
@@ -92,6 +102,7 @@ const Login = (props) => {
                             variant="contained"
                             color="primary"
                             fullWidth
+                            disabled={id === "" || pwd === "" ? true : false}
                         >
                             로그인하기
                         </Button>

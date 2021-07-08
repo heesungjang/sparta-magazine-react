@@ -8,6 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";
 import HomeIcon from "@material-ui/icons/Home";
 import { Grid, Typography, Button } from "@material-ui/core";
+import NotiBadge from "./NotiBadge";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -43,6 +44,11 @@ const Header = React.memo((props) => {
                     {/* <Grid xs={3}></Grid> */}
                     <Grid item={true} xs={6}>
                         <ButtonContainer>
+                            <NotiBadge
+                                _onClick={() => {
+                                    history.push("/noti");
+                                }}
+                            />
                             <Button
                                 variant="outlined"
                                 color="secondary"

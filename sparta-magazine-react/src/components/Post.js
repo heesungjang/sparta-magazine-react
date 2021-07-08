@@ -2,6 +2,7 @@ import React from "react";
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import {
@@ -15,6 +16,7 @@ import {
     CardContent,
     IconButton,
     Container,
+    Paper,
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -98,11 +100,13 @@ const Post = React.memo((props) => {
                         title={props.user_info.user_name}
                         subheader={props.insert_dt}
                     />
+
                     <CardMedia
                         className={classes.media}
                         image={props.image_url}
                         // title="Paella dish"
                     />
+
                     <CardContent>
                         <Typography
                             variant="body2"
