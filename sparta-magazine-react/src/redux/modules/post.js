@@ -285,8 +285,14 @@ const toggleLikeFB = (post_id) => {
 
                     batch.commit().then(() => {
                         dispatch(likeToggle(post_id, !_post.is_like));
+                        dispatch(
+                            editPost(post_id, {
+                                like_cnt: parseInt(_post.like_cnt) - 1,
+                            })
+                        );
                     });
                 })
+
                 .catch((err) => {
                     console.log(err);
                 });
@@ -297,6 +303,11 @@ const toggleLikeFB = (post_id) => {
                     .update({ like_cnt: _post.like_cnt + 1 })
                     .then((doc) => {
                         dispatch(likeToggle(post_id, !_post.is_like));
+                        dispatch(
+                            editPost(post_id, {
+                                like_cnt: parseInt(_post.like_cnt) + 1,
+                            })
+                        );
                     });
             });
         }
