@@ -48,6 +48,7 @@ const PostWrite = (props) => {
 
     let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
     const [contents, setContents] = React.useState(_post ? _post.contents : "");
+    const [is_disabled, set_Is_disabled] = React.useState(true);
     React.useEffect(() => {
         if (is_edit && !_post) {
             console.log("포스트 정보가 없어요!");
@@ -71,11 +72,14 @@ const PostWrite = (props) => {
     const selectFile = (e) => {
         const reader = new FileReader();
         const file = e.target.files[0];
+        // console.log(file);
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             // reader.result는 파일의 컨텐츠(내용물)입니다!
-            console.log(reader.result);
-            dispatch(imageActions.setPreview(reader.result));
+            if (reader.result) {
+                set_Is_disabled(false);
+                dispatch(imageActions.setPreview(reader.result));
+            }
         };
     };
     const uploadFB = () => {
@@ -90,6 +94,10 @@ const PostWrite = (props) => {
 
     const editPost = () => {
         dispatch(postActions.editPostFB(post_id, { contents: contents }));
+    };
+
+    const deletePost = () => {
+        dispatch(postActions.deletePostFB(post_id));
     };
 
     if (!is_login) {
@@ -193,16 +201,31 @@ const PostWrite = (props) => {
                     }}
                 >
                     {is_edit ? (
-                        <Button
-                            onClick={editPost}
-                            variant="contained"
-                            color="primary"
-                            style={{
-                                width: "400px",
-                            }}
+                        <Grid
+                            style={{ display: "flex", flexDirection: "column" }}
                         >
-                            게시글 수정
-                        </Button>
+                            <Button
+                                onClick={editPost}
+                                variant="outlined"
+                                color="primary"
+                                style={{
+                                    width: "400px",
+                                }}
+                            >
+                                게시글 수정
+                            </Button>
+                            <Button
+                                onClick={deletePost}
+                                variant="contained"
+                                color="secondary"
+                                style={{
+                                    width: "400px",
+                                    marginTop: "10px",
+                                }}
+                            >
+                                게시글 삭제
+                            </Button>
+                        </Grid>
                     ) : (
                         <Button
                             onClick={addPost}
@@ -211,6 +234,7 @@ const PostWrite = (props) => {
                             style={{
                                 width: "400px",
                             }}
+                            disabled={is_disabled}
                         >
                             게시글 작성
                         </Button>

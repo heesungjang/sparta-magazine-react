@@ -1,18 +1,16 @@
 import React from "react";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LayoutContainer from "../components/LayoutContainer";
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
+import { actionCreators as postActions } from "../redux/modules/post";
 import {
     Avatar,
-    Button,
     Grid,
     Typography,
     CardMedia,
     Card,
-    CardActionArea,
     CardActions,
-    Collapse,
     CardHeader,
     CardContent,
     IconButton,
@@ -21,7 +19,6 @@ import {
 
 import { makeStyles } from "@material-ui/core/styles";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,10 +44,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Post = (props) => {
+const Post = React.memo((props) => {
     console.log(props);
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const dispatch = useDispatch();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -116,9 +114,26 @@ const Post = (props) => {
                     </CardContent>
                     <CardActions disableSpacing>
                         <Grid item={true} xs={6}>
-                            <IconButton aria-label="add to favorites">
+                            <IconButton
+                                aria-label="add to favorites"
+                                onClick={(e) => {
+                                    //  이벤트 캡쳐링과 버블링을 막아요!
+                                    // 이벤트 캡쳐링, 버블링이 뭔지 검색해보기! :)
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    dispatch(
+                                        postActions.toggleLikeFB(props.id)
+                                    );
+                                }}
+                                color={
+                                    props.is_like === true
+                                        ? "secondary"
+                                        : "default"
+                                }
+                            >
                                 <FavoriteIcon />
                             </IconButton>
+                            {props.like_cnt}
                         </Grid>
                         <Grid
                             item={true}
@@ -137,7 +152,7 @@ const Post = (props) => {
             </Grid>
         </Container>
     );
-};
+});
 
 Post.defaultProps = {
     user_info: {
@@ -147,9 +162,11 @@ Post.defaultProps = {
     },
     image_url: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
     contents: "고양이네요!",
-    comment_cnt: 10,
+    comment_cnt: 0,
+    like_cnt: 0,
     insert_dt: "2021-02-27 10:00:00",
     is_me: false,
+    is_like: false,
 };
 
 export default Post;

@@ -37,7 +37,7 @@ const Header = React.memo((props) => {
                             }}
                         >
                             <HomeIcon fontSize="large" color="primary" />
-                            <Typography variant="h6">My Dictionary </Typography>
+                            <Typography variant="h6">My Magazine </Typography>
                         </Button>
                     </Grid>
                     {/* <Grid xs={3}></Grid> */}
